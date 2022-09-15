@@ -1,0 +1,13 @@
+prefix: "<grey>[<#9403fc>Void<#0373fc>Teleport<grey>]"
+
+no-permission: "{PREFIX} <#d63e4d>You do not have permission"
+no-console: "{PREFIX} <#d63e4d>Console cannot run this command"
+
+reload: "{PREFIX} <#31e31e>Plugin reloaded!"
+
+command-usage: "{PREFIX} <#d63e4d>Usage: {COMMAND_USAGE}"
+
+world-not-set: "{PREFIX} <#d63e4d>Teleport isn't set in this world"
+spawn-set: "{PREFIX} <#31e31e>Spawn set Successfully"
+world-tp-removed: "{PREFIX} <#d63e4d>Teleport removed from this world"
+yoffset-set: "{PREFIX} <#31e31e>Y-Offset set Successfully"

@@ -1,0 +1,8 @@
+name: VoidTeleport
+version: '${project.version}'
+main: me.luucka.voidteleport.VoidTeleport
+api-version: 1.19
+authors: [ LuuckA ]
+description: Teleport a player to certain coords when he falls into the void
+libraries:
+  - org.spongepowered:configurate-yaml:${libs.configurate-yaml}
