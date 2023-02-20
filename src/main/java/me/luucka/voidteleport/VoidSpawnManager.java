@@ -4,7 +4,6 @@ import me.luucka.voidteleport.config.BaseConfiguration;
 import me.luucka.voidteleport.config.IConfig;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;

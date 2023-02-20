@@ -5,7 +5,6 @@ import me.luucka.voidteleport.config.BaseConfiguration;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class SpawnLocation {
 
