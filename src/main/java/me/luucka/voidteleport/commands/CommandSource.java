@@ -5,9 +5,9 @@ import lombok.Setter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static me.luucka.voidteleport.utils.Color.colorize;
+import static me.luucka.voidteleport.utils.MMColor.toComponent;
 
-public final class CommandSource {
+public class CommandSource {
 
     @Getter
     @Setter
@@ -29,7 +29,7 @@ public final class CommandSource {
     }
 
     public void sendMessage(final String message) {
-        if (!message.isEmpty()) sender.sendMessage(colorize(message));
+        if (!message.isEmpty()) sender.sendMessage(toComponent(message));
     }
 
     public boolean hasPermission(final String permission) {

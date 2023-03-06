@@ -1,38 +1,48 @@
 package me.luucka.voidteleport.listeners;
 
-import lombok.RequiredArgsConstructor;
-import me.luucka.voidteleport.VoidTeleport;
-import org.bukkit.Location;
+import me.luucka.voidteleport.SpawnLocationManager;
+import me.luucka.voidteleport.VoidTeleportPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 public class PlayerListener implements Listener {
 
-    private final VoidTeleport plugin;
+    private final VoidTeleportPlugin plugin;
+    private final SpawnLocationManager spawnLocationManager;
 
     private final Set<UUID> fallingPlayers = new HashSet<>();
+
+    public PlayerListener(VoidTeleportPlugin plugin) {
+        this.plugin = plugin;
+        this.spawnLocationManager = plugin.getSpawnLocationManager();
+    }
 
     @EventHandler
     public void onPlayerMove(final PlayerMoveEvent event) {
         final Player player = event.getPlayer();
-        final String worldName = player.getWorld().getName();
-        final Location toLocation = event.getTo();
+        if (event.getFrom().toVector().equals(event.getTo().toVector())) return;
 
-        if (event.getFrom().toVector().equals(toLocation.toVector())) return;
-
-        try {
-            plugin.getVoidSpawnManager().teleport(worldName, player, toLocation);
-            fallingPlayers.add(player.getUniqueId());
-        } catch (Exception ignored) {
-        }
+        spawnLocationManager.getSpawnLocationOnByWorld(player.getWorld())
+                .ifPresent(location -> {
+                            if (location.canTeleport(event.getTo().getY())) {
+                                (new BukkitRunnable() {
+                                    @Override
+                                    public void run() {
+                                        location.teleport(player);
+                                    }
+                                }).runTaskLater(plugin, 0L);
+                                fallingPlayers.add(player.getUniqueId());
+                            }
+                        }
+                );
     }
 
     @EventHandler

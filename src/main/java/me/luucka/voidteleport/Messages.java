@@ -7,8 +7,6 @@ import java.io.File;
 
 public class Messages implements IConfig {
 
-    private final VoidTeleport plugin;
-
     private final BaseConfiguration config;
 
     private String prefix;
@@ -25,12 +23,17 @@ public class Messages implements IConfig {
 
     private String spawnSet;
 
+    private String spawnUpdate;
+
     private String worldTpRemoved;
 
     private String yOffsetSet;
 
-    public Messages(VoidTeleport plugin) {
-        this.plugin = plugin;
+    private String tpActive;
+
+    private String tpInactive;
+
+    public Messages(VoidTeleportPlugin plugin) {
         this.config = new BaseConfiguration(new File(plugin.getDataFolder(), "messages.yml"), "/messages.yml");
         reloadConfig();
     }
@@ -59,12 +62,24 @@ public class Messages implements IConfig {
         return spawnSet.replace("{PREFIX}", prefix);
     }
 
+    public String spawnUpdate() {
+        return spawnUpdate.replace("{PREFIX}", prefix);
+    }
+
     public String worldTpRemoved() {
         return worldTpRemoved.replace("{PREFIX}", prefix);
     }
 
     public String yOffsetSet() {
         return yOffsetSet.replace("{PREFIX}", prefix);
+    }
+
+    public String tpActive() {
+        return tpActive.replace("{PREFIX}", prefix);
+    }
+
+    public String tpInactive() {
+        return tpInactive.replace("{PREFIX}", prefix);
     }
 
     @Override
@@ -77,7 +92,10 @@ public class Messages implements IConfig {
         commandUsage = config.getString("command-usage", "");
         worldNotSet = config.getString("world-not-set", "");
         spawnSet = config.getString("spawn-set", "");
+        spawnUpdate = config.getString("spawn-update", "");
         worldTpRemoved = config.getString("world-tp-removed", "");
         yOffsetSet = config.getString("yoffset-set", "");
+        tpActive = config.getString("tp-active", "");
+        tpInactive = config.getString("tp-inactive", "");
     }
 }

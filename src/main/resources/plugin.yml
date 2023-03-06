@@ -1,6 +1,6 @@
 name: VoidTeleport
 version: '${project.version}'
-main: me.luucka.voidteleport.VoidTeleport
+main: me.luucka.voidteleport.VoidTeleportPlugin
 api-version: 1.19
 authors: [ LuuckA ]
 description: Teleport a player to certain coords when he falls into the void

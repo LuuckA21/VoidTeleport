@@ -1,5 +1,6 @@
-package me.luucka.voidteleport.config;
+package me.luucka.voidteleport.config.serializers;
 
+import me.luucka.voidteleport.config.entities.LazyLocation;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
@@ -16,13 +17,16 @@ public class LocationTypeSerializer implements TypeSerializer<LazyLocation> {
             throw new SerializationException("No world value present");
         }
 
+        final float yaw = node.node("yaw").getFloat(0.0F);
+        final float pitch = node.node("pitch").getFloat(0.0F);
+
         return new LazyLocation(
                 world,
                 node.node("x").getDouble(),
                 node.node("y").getDouble(),
                 node.node("z").getDouble(),
-                node.node("yaw").getFloat(),
-                node.node("pitch").getFloat()
+                yaw,
+                pitch
         );
     }
 
@@ -37,7 +41,7 @@ public class LocationTypeSerializer implements TypeSerializer<LazyLocation> {
         node.node("x").set(Double.class, value.x());
         node.node("y").set(Double.class, value.y());
         node.node("z").set(Double.class, value.z());
-        node.node("yaw").set(Float.class, value.yaw());
-        node.node("pitch").set(Float.class, value.pitch());
+        if (value.yaw() != 0F) node.node("yaw").set(Float.class, value.yaw());
+        if (value.pitch() != 0F) node.node("pitch").set(Float.class, value.pitch());
     }
 }

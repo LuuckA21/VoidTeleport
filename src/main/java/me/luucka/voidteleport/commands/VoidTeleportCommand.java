@@ -1,59 +1,60 @@
 package me.luucka.voidteleport.commands;
 
-import me.luucka.voidteleport.VoidTeleport;
-import org.bukkit.Location;
+import me.luucka.voidteleport.Messages;
+import me.luucka.voidteleport.SpawnLocation;
+import me.luucka.voidteleport.SpawnLocationManager;
+import me.luucka.voidteleport.VoidTeleportPlugin;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static me.luucka.voidteleport.utils.Color.colorize;
+import static me.luucka.voidteleport.utils.MMColor.toComponent;
 
 public class VoidTeleportCommand extends BaseCommand {
 
-    private final VoidTeleport plugin;
+    private final VoidTeleportPlugin plugin;
+    private final Messages messages;
+    private final SpawnLocationManager spawnLocationManager;
 
-    public VoidTeleportCommand(final VoidTeleport plugin) {
-        super("voidteleport", "VoidTeleport main command", "voidteleport.admin", "voidtp", "vtp");
+    public VoidTeleportCommand(final VoidTeleportPlugin plugin) {
+        super("voidteleport", "VoidTeleport main command", "voidteleport.admin");
         this.plugin = plugin;
-        this.setUsage("/voidteleport <spawn | yoffset | remove | reload>");
+        this.messages = plugin.getMessages();
+        this.spawnLocationManager = plugin.getSpawnLocationManager();
+        this.setUsage("/voidteleport < spawn | yoffset | remove | reload >");
     }
 
     @Override
     public void execute(CommandSource sender, String[] args) throws Exception {
-        if (!testPermissionSilent(sender.getSender())) throw new Exception(plugin.getMessages().noPermission());
-
-        if (args.length < 1) throw new Exception(plugin.getMessages().commandUsage(this.getUsage()));
+        if (!sender.isPlayer()) throw new Exception(messages.noConsole());
+        if (!testPermissionSilent(sender.getSender())) throw new Exception(messages.noPermission());
+        if (args.length < CommandType.getMinArgsNeeded()) throw new Exception(messages.commandUsage(getUsage()));
 
         final CommandType cmd;
         try {
             cmd = CommandType.valueOf(args[0].toUpperCase());
         } catch (final IllegalArgumentException ex) {
-            throw new Exception(plugin.getMessages().commandUsage(this.getUsage()));
+            throw new Exception(messages.commandUsage(getUsage()));
         }
 
+        final Player player = sender.getPlayer();
+
         switch (cmd) {
-            case SPAWN -> {
-                if (!sender.isPlayer()) throw new Exception(plugin.getMessages().noConsole());
-                final Player player = sender.getPlayer();
-
-                final String worldName = player.getWorld().getName();
-                final Location location = player.getLocation();
-
-                this.plugin.getVoidSpawnManager().setSpawnLocation(worldName, location);
-
-                player.sendMessage(colorize(plugin.getMessages().spawnSet()));
-            }
+            case SPAWN -> spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresentOrElse(
+                    location -> {
+                        location.setLocation(player.getLocation());
+                        player.sendMessage(toComponent(messages.spawnUpdate()));
+                    },
+                    () -> {
+                        spawnLocationManager.createSpawnLocation(player.getLocation());
+                        player.sendMessage(toComponent(messages.spawnSet()));
+                    }
+            );
             case YOFFSET -> {
-                if (!sender.isPlayer()) throw new Exception(plugin.getMessages().noConsole());
-
-                if (args.length < 2)
-                    throw new Exception(plugin.getMessages().commandUsage("/voidteleport yoffset <y-offset>"));
-
-                final Player player = sender.getPlayer();
-
-                final String worldName = player.getWorld().getName();
+                if (args.length < cmd.argsNeeded)
+                    throw new Exception(messages.commandUsage("/voidteleport yoffset <y-offset>"));
 
                 double yOffset;
                 try {
@@ -61,24 +62,36 @@ public class VoidTeleportCommand extends BaseCommand {
                 } catch (final NumberFormatException ex) {
                     yOffset = -100.0D;
                 }
-
-                plugin.getVoidSpawnManager().setYOffset(worldName, yOffset);
-
-                player.sendMessage(colorize(plugin.getMessages().yOffsetSet()));
+                double finalYOffset = yOffset;
+                spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresentOrElse(
+                        location -> {
+                            location.setYOffset(finalYOffset);
+                            player.sendMessage(toComponent(messages.yOffsetSet()));
+                        },
+                        () -> {
+                            player.sendMessage(toComponent(messages.worldNotSet()));
+                        }
+                );
             }
-            case REMOVE -> {
-                if (!sender.isPlayer()) throw new Exception(plugin.getMessages().noConsole());
-                final Player player = sender.getPlayer();
-
-                final String worldName = player.getWorld().getName();
-
-                this.plugin.getVoidSpawnManager().remove(worldName);
-
-                player.sendMessage(colorize(plugin.getMessages().worldTpRemoved()));
-            }
+            case REMOVE -> spawnLocationManager.getSpawnLocationByWorld(player.getWorld())
+                    .ifPresent(location -> {
+                                spawnLocationManager.remove(location);
+                                player.sendMessage(toComponent(messages.worldTpRemoved()));
+                            }
+                    );
+            case ON -> spawnLocationManager.getSpawnLocationByWorld(player.getWorld())
+                    .ifPresent(location -> {
+                        location.setStatus(SpawnLocation.Status.ON);
+                        player.sendMessage(toComponent(messages.tpActive()));
+                    });
+            case OFF -> spawnLocationManager.getSpawnLocationByWorld(player.getWorld())
+                    .ifPresent(location -> {
+                        location.setStatus(SpawnLocation.Status.OFF);
+                        player.sendMessage(toComponent(messages.tpInactive()));
+                    });
             case RELOAD -> {
-                this.plugin.reload();
-                sender.sendMessage(plugin.getMessages().reload());
+                plugin.reload();
+                player.sendMessage(toComponent(messages.reload()));
             }
         }
     }
@@ -99,9 +112,25 @@ public class VoidTeleportCommand extends BaseCommand {
     }
 
     private enum CommandType {
-        SPAWN,
-        YOFFSET,
-        REMOVE,
-        RELOAD
+        SPAWN(1),
+        YOFFSET(2),
+        REMOVE(1),
+        ON(1),
+        OFF(1),
+        RELOAD(1);
+
+        private final int argsNeeded;
+
+        CommandType(int argsNeeded) {
+            this.argsNeeded = argsNeeded;
+        }
+
+        public static int getMinArgsNeeded() {
+            int min = values()[0].argsNeeded;
+            for (CommandType ct : values()) {
+                if (ct.argsNeeded < min) min = ct.argsNeeded;
+            }
+            return min;
+        }
     }
 }

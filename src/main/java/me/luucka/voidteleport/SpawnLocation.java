@@ -10,17 +10,25 @@ public class SpawnLocation {
 
     private final BaseConfiguration config;
 
+    public String getWorldName() {
+        return this.location.getWorld().getName();
+    }
+
     @Getter
     private Location location;
 
     @Getter
     private double yOffset;
 
+    @Getter
+    private Status status;
+
     public SpawnLocation(final BaseConfiguration config) {
         this.config = config;
-        this.config.load();
-        this.location = this.config.getLocation("world").location();
-        this.yOffset = this.config.getDouble("y-offset", -100.0D);
+        config.load();
+        this.location = config.getLocation("world").location();
+        this.yOffset = config.getDouble("y-offset", -100.0D);
+        this.status = config.getBoolean("active", true) ? Status.ON : Status.OFF;
     }
 
     public SpawnLocation(final BaseConfiguration config, final Location location) {
@@ -28,6 +36,7 @@ public class SpawnLocation {
         this.config.load();
         this.location = location;
         this.yOffset = -100.0D;
+        this.status = Status.ON;
         save();
     }
 
@@ -38,6 +47,11 @@ public class SpawnLocation {
 
     public void setYOffset(double yOffset) {
         this.yOffset = yOffset;
+        save();
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
         save();
     }
 
@@ -52,10 +66,22 @@ public class SpawnLocation {
     public void save() {
         this.config.setProperty("world", location);
         this.config.setProperty("y-offset", yOffset);
+        this.config.setProperty("active", status.value);
         this.config.save();
     }
 
-    public void remove() {
+    public void delete() {
         config.getFile().delete();
+    }
+
+    public enum Status {
+        ON(true),
+        OFF(false);
+
+        private final boolean value;
+
+        Status(boolean value) {
+            this.value = value;
+        }
     }
 }

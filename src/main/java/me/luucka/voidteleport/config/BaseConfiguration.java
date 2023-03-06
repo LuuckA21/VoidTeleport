@@ -1,5 +1,8 @@
 package me.luucka.voidteleport.config;
 
+
+import me.luucka.voidteleport.config.entities.LazyLocation;
+import me.luucka.voidteleport.config.serializers.LocationTypeSerializer;
 import org.bukkit.Location;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
@@ -15,12 +18,14 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class BaseConfiguration {
 
-    private static final Logger LOGGER = Logger.getLogger("VoidTeleport");
+    private static final Logger LOGGER = Logger.getLogger("Parkour");
 
     private Class<?> resourceClass = BaseConfiguration.class;
     private final File configFile;
@@ -58,7 +63,7 @@ public final class BaseConfiguration {
         return configFile;
     }
 
-//    ----- Location -----
+//    ----- Location ---------------------------------------------------------------------------------------------------
 
     public void setProperty(String path, final Location location) {
         setInternal(path, LazyLocation.fromLocation(location));
@@ -67,7 +72,6 @@ public final class BaseConfiguration {
     public LazyLocation getLocation(final String path) {
         final CommentedConfigurationNode node = path == null ? getRootNode() : getSection(path);
         if (node == null) return null;
-
         try {
             return node.get(LazyLocation.class);
         } catch (SerializationException e) {
@@ -75,7 +79,7 @@ public final class BaseConfiguration {
         }
     }
 
-//    ----- List -----
+//    ----- List -------------------------------------------------------------------------------------------------------
 
     public void setProperty(final String path, final List<?> list) {
         setInternal(path, list);
@@ -110,7 +114,7 @@ public final class BaseConfiguration {
         return node != null && node.isList();
     }
 
-//    ----- String -----
+//    ----- String -----------------------------------------------------------------------------------------------------
 
     public void setProperty(final String path, final String value) {
         setInternal(path, value);
@@ -122,7 +126,7 @@ public final class BaseConfiguration {
         return node.getString();
     }
 
-//    ----- Boolean -----
+//    ----- Boolean ----------------------------------------------------------------------------------------------------
 
     public void setProperty(final String path, final boolean value) {
         setInternal(path, value);
@@ -139,7 +143,19 @@ public final class BaseConfiguration {
         return node != null && node.raw() instanceof Boolean;
     }
 
-//    ----- Int -----
+//    ----- Long -------------------------------------------------------------------------------------------------------
+
+    public void setProperty(final String path, final long value) {
+        setInternal(path, value);
+    }
+
+    public long getLong(final String path, final long def) {
+        final CommentedConfigurationNode node = getInternal(path);
+        if (node == null) return def;
+        return node.getLong();
+    }
+
+//    ----- Int --------------------------------------------------------------------------------------------------------
 
     public void setProperty(final String path, final int value) {
         setInternal(path, value);
@@ -151,7 +167,7 @@ public final class BaseConfiguration {
         return node.getInt();
     }
 
-//    ----- Double -----
+//    ----- Double -----------------------------------------------------------------------------------------------------
 
     public void setProperty(final String path, final double value) {
         setInternal(path, value);
@@ -159,13 +175,23 @@ public final class BaseConfiguration {
 
     public double getDouble(final String path, final double def) {
         final CommentedConfigurationNode node = getInternal(path);
-        if (node == null) {
-            return def;
-        }
+        if (node == null) return def;
         return node.getDouble();
     }
 
-//    ----- Raw -----
+//    ----- Float ------------------------------------------------------------------------------------------------------
+
+    public void setProperty(final String path, final float value) {
+        setInternal(path, value);
+    }
+
+    public float getFloat(final String path, final float def) {
+        final CommentedConfigurationNode node = getInternal(path);
+        if (node == null) return def;
+        return node.getFloat();
+    }
+
+//    ----- Raw --------------------------------------------------------------------------------------------------------
 
     public void setRaw(final String path, final Object value) {
         setInternal(path, value);
@@ -176,6 +202,8 @@ public final class BaseConfiguration {
         return node == null ? null : node.raw();
     }
 
+//    ----- Section ----------------------------------------------------------------------------------------------------
+
     public CommentedConfigurationNode getSection(final String path) {
         final CommentedConfigurationNode node = toSplitRoot(path, configurationNode);
         if (node.virtual()) return null;
@@ -184,6 +212,18 @@ public final class BaseConfiguration {
 
     public CommentedConfigurationNode newSection() {
         return loader.createNode();
+    }
+
+//    ----- Utils -------------------------------------------------------------------------------------------------------
+
+    public Set<String> getKeys(final String path) {
+        final CommentedConfigurationNode configurationNode = getSection(path);
+        return ConfigurateUtil.getKeys(configurationNode);
+    }
+
+    public Map<String, CommentedConfigurationNode> getMap(final String path) {
+        final CommentedConfigurationNode configurationNode = getSection(path);
+        return ConfigurateUtil.getMap(configurationNode);
     }
 
     public void removeProperty(String path) {
@@ -225,7 +265,7 @@ public final class BaseConfiguration {
     public void load() {
         if (configFile.getParentFile() != null && !configFile.getParentFile().exists()) {
             if (!configFile.getParentFile().mkdirs()) {
-                LOGGER.log(Level.SEVERE, "Failed to create config: ", configFile.toString());
+                LOGGER.log(Level.SEVERE, "Failed to create file: ", configFile.toString());
             }
         }
 
@@ -237,7 +277,7 @@ public final class BaseConfiguration {
                     this.configFile.createNewFile();
                 }
             } catch (IOException e) {
-                LOGGER.log(Level.SEVERE, "Failed to create config " + configFile, e);
+                LOGGER.log(Level.SEVERE, "Failed to create file " + configFile, e);
             }
         }
 
@@ -251,7 +291,7 @@ public final class BaseConfiguration {
             }
             LOGGER.log(Level.SEVERE, "The file " + configFile + " is broken. A backup file has failed to be created", e.getCause());
         } catch (final ConfigurateException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);;
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         } finally {
             if (configurationNode == null) {
                 configurationNode = loader.createNode();

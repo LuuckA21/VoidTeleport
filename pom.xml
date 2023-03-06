@@ -6,7 +6,7 @@
 
     <groupId>me.luucka</groupId>
     <artifactId>VoidTeleport</artifactId>
-    <version>Build-2</version>
+    <version>Build-3</version>
     <packaging>jar</packaging>
 
     <name>VoidTeleport</name>
@@ -16,7 +16,7 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <libs.lombok>1.18.24</libs.lombok>
+        <libs.lombok>1.18.26</libs.lombok>
         <libs.configurate-yaml>4.1.2</libs.configurate-yaml>
     </properties>
 
@@ -58,7 +58,7 @@
 
     <repositories>
         <repository>
-            <id>papermc-repo</id>
+            <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
@@ -71,7 +71,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.19.2-R0.1-SNAPSHOT</version>
+            <version>1.19.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

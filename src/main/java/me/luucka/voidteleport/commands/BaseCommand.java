@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import static me.luucka.voidteleport.utils.Color.colorize;
+import static me.luucka.voidteleport.utils.MMColor.toComponent;
 
 public abstract class BaseCommand extends BukkitCommand {
 
@@ -38,20 +38,6 @@ public abstract class BaseCommand extends BukkitCommand {
         }
 
         registeredCommands.add(this);
-        Bukkit.getHelpMap().clear();
-        List<HelpTopic> topics = new ArrayList<>();
-        for (final BaseCommand bc : registeredCommands) {
-            topics.add(new GenericCommandHelpTopic(bc));
-        }
-        Bukkit.getHelpMap().addTopic(
-                new IndexHelpTopic(
-                        "VoidTeleport",
-                        "VoidTP",
-                        "voidteleport.admin",
-                        topics,
-                        "VoidTeleport Help page"
-                )
-        );
     }
 
     @Override
@@ -59,7 +45,7 @@ public abstract class BaseCommand extends BukkitCommand {
         try {
             execute(new CommandSource(sender), args);
         } catch (Exception e) {
-            sender.sendMessage(colorize(e.getMessage()));
+            sender.sendMessage(toComponent(e.getMessage()));
         }
         return false;
     }
@@ -72,4 +58,21 @@ public abstract class BaseCommand extends BukkitCommand {
     }
 
     public abstract List<String> onTabComplete(CommandSource sender, String[] args);
+
+    public static void registerHelpMap(final String name, final String shortText, final String permission, final String preamble) {
+        Bukkit.getHelpMap().clear();
+        List<HelpTopic> topics = new ArrayList<>();
+        for (final BaseCommand bc : registeredCommands) {
+            topics.add(new GenericCommandHelpTopic(bc));
+        }
+        Bukkit.getHelpMap().addTopic(
+                new IndexHelpTopic(
+                        name,
+                        shortText,
+                        permission,
+                        topics,
+                        preamble
+                )
+        );
+    }
 }
