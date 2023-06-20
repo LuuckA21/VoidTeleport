@@ -23,7 +23,7 @@ public class VoidTeleportCommand extends BaseCommand {
         this.plugin = plugin;
         this.messages = plugin.getMessages();
         this.spawnLocationManager = plugin.getSpawnLocationManager();
-        this.setUsage("/voidteleport < spawn | yoffset | remove | reload >");
+        this.setUsage("/voidteleport < spawn | yoffset | remove | on | off | reload >");
     }
 
     @Override

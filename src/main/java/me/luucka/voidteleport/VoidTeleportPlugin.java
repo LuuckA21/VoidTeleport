@@ -38,11 +38,6 @@ public final class VoidTeleportPlugin extends JavaPlugin {
         BaseCommand.registerHelpMap("VoidTeleport", "VoidTP", "voidteleport.admin", "VoidTeleport Help page");
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
-
     public void reload() {
         for (final IConfig iConfig : configList) {
             iConfig.reloadConfig();

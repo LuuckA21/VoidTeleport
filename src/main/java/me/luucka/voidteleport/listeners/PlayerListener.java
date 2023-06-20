@@ -30,7 +30,7 @@ public class PlayerListener implements Listener {
         final Player player = event.getPlayer();
         if (event.getFrom().toVector().equals(event.getTo().toVector())) return;
 
-        spawnLocationManager.getSpawnLocationOnByWorld(player.getWorld())
+        spawnLocationManager.getSpawnLocationStatusOnByWorld(player.getWorld())
                 .ifPresent(location -> {
                             if (location.canTeleport(event.getTo().getY())) {
                                 (new BukkitRunnable() {
