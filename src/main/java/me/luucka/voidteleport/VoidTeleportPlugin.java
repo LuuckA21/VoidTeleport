@@ -3,9 +3,7 @@ package me.luucka.voidteleport;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import lombok.Getter;
-import me.luucka.voidteleport.command.BaseCommand;
 import me.luucka.voidteleport.command.VoidTeleportCommand;
-import me.luucka.voidteleport.command.VoidTeleportCommandNew;
 import me.luucka.voidteleport.config.IConfig;
 import me.luucka.voidteleport.listener.PlayerListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,6 +35,8 @@ public final class VoidTeleportPlugin extends JavaPlugin {
     public void onEnable() {
         if (LOGGER != this.getLogger()) LOGGER.setParent(this.getLogger());
 
+        CommandAPI.onEnable();
+
         this.spawnLocationManager = new SpawnLocationManager(this);
         this.configList.add(this.spawnLocationManager);
 
@@ -44,9 +44,7 @@ public final class VoidTeleportPlugin extends JavaPlugin {
         this.configList.add(this.messages);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
-//        new VoidTeleportCommand(this);
-//        BaseCommand.registerHelpMap("VoidTeleport", "VoidTP", "voidteleport.admin", "VoidTeleport Help page");
-        new VoidTeleportCommandNew(this);
+        new VoidTeleportCommand(this);
     }
 
     @Override
