@@ -1,8 +1,8 @@
 package me.luucka.voidteleport.config;
 
 
-import me.luucka.voidteleport.config.entities.LazyLocation;
-import me.luucka.voidteleport.config.serializers.LocationTypeSerializer;
+import me.luucka.voidteleport.config.entity.LazyLocation;
+import me.luucka.voidteleport.config.serializer.LocationTypeSerializer;
 import org.bukkit.Location;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 public final class BaseConfiguration {
 
-    private static final Logger LOGGER = Logger.getLogger("Parkour");
+    private static final Logger LOGGER = Logger.getLogger("VoidTeleport");
 
     private Class<?> resourceClass = BaseConfiguration.class;
     private final File configFile;
@@ -303,7 +303,7 @@ public final class BaseConfiguration {
         try {
             loader.save(configurationNode);
         } catch (ConfigurateException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
     }
 

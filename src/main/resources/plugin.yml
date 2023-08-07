@@ -6,3 +6,4 @@ authors: [ LuuckA ]
 description: Teleport a player to certain coords when he falls into the void
 libraries:
   - org.spongepowered:configurate-yaml:${libs.configurate-yaml}
+  - dev.jorel:commandapi-bukkit-shade:${libs.commandapi}

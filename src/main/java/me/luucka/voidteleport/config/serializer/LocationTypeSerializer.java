@@ -1,6 +1,6 @@
-package me.luucka.voidteleport.config.serializers;
+package me.luucka.voidteleport.config.serializer;
 
-import me.luucka.voidteleport.config.entities.LazyLocation;
+import me.luucka.voidteleport.config.entity.LazyLocation;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;

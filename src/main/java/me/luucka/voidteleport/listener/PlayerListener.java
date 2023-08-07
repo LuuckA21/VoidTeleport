@@ -1,4 +1,4 @@
-package me.luucka.voidteleport.listeners;
+package me.luucka.voidteleport.listener;
 
 import me.luucka.voidteleport.SpawnLocationManager;
 import me.luucka.voidteleport.VoidTeleportPlugin;
@@ -30,7 +30,7 @@ public class PlayerListener implements Listener {
         final Player player = event.getPlayer();
         if (event.getFrom().toVector().equals(event.getTo().toVector())) return;
 
-        spawnLocationManager.getSpawnLocationStatusOnByWorld(player.getWorld())
+        spawnLocationManager.getSpawnLocationWithStatusOnByWorld(player.getWorld())
                 .ifPresent(location -> {
                             if (location.canTeleport(event.getTo().getY())) {
                                 (new BukkitRunnable() {

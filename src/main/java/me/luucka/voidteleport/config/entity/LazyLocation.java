@@ -1,4 +1,4 @@
-package me.luucka.voidteleport.config.entities;
+package me.luucka.voidteleport.config.entity;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

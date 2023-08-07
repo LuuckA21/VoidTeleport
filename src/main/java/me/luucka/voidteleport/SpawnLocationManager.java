@@ -31,7 +31,7 @@ public class SpawnLocationManager implements IConfig {
         return spawnLocations.stream().filter(spawnLocation -> spawnLocation.getWorldName().equalsIgnoreCase(world.getName())).findFirst();
     }
 
-    public Optional<SpawnLocation> getSpawnLocationStatusOnByWorld(final World world) {
+    public Optional<SpawnLocation> getSpawnLocationWithStatusOnByWorld(final World world) {
         return spawnLocations.stream().filter(spawnLocation -> spawnLocation.getWorldName().equalsIgnoreCase(world.getName()) && spawnLocation.getStatus() == SpawnLocation.Status.ON).findFirst();
     }
 

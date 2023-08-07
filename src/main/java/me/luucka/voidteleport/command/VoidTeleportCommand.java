@@ -1,4 +1,4 @@
-package me.luucka.voidteleport.commands;
+package me.luucka.voidteleport.command;
 
 import me.luucka.voidteleport.Messages;
 import me.luucka.voidteleport.SpawnLocation;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static me.luucka.voidteleport.utils.MMColor.toComponent;
+import static me.luucka.voidteleport.util.MMColor.toComponent;
 
 public class VoidTeleportCommand extends BaseCommand {
 

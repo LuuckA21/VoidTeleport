@@ -1,11 +1,11 @@
-package me.luucka.voidteleport.commands;
+package me.luucka.voidteleport.command;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static me.luucka.voidteleport.utils.MMColor.toComponent;
+import static me.luucka.voidteleport.util.MMColor.toComponent;
 
 public class CommandSource {
 

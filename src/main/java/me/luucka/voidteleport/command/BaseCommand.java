@@ -1,4 +1,4 @@
-package me.luucka.voidteleport.commands;
+package me.luucka.voidteleport.command;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import static me.luucka.voidteleport.utils.MMColor.toComponent;
+import static me.luucka.voidteleport.util.MMColor.toComponent;
 
 public abstract class BaseCommand extends BukkitCommand {
 

@@ -1,4 +1,4 @@
-package me.luucka.voidteleport.utils;
+package me.luucka.voidteleport.util;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
