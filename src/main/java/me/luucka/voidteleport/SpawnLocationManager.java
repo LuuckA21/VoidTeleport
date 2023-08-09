@@ -1,7 +1,7 @@
 package me.luucka.voidteleport;
 
+import me.luucka.extendlibrary.util.IReload;
 import me.luucka.voidteleport.config.BaseConfiguration;
-import me.luucka.voidteleport.config.IConfig;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SpawnLocationManager implements IConfig {
+public class SpawnLocationManager implements IReload {
 
     private static final Logger LOGGER = Logger.getLogger("VoidTeleport");
 
@@ -24,7 +24,7 @@ public class SpawnLocationManager implements IConfig {
         if (!this.dataFolder.exists()) {
             this.dataFolder.mkdirs();
         }
-        reloadConfig();
+        reload();
     }
 
     public Optional<SpawnLocation> getSpawnLocationByWorld(final World world) {
@@ -47,7 +47,7 @@ public class SpawnLocationManager implements IConfig {
     }
 
     @Override
-    public void reloadConfig() {
+    public void reload() {
         spawnLocations.clear();
         final File[] listOfFiles = dataFolder.listFiles();
         if (listOfFiles.length >= 1) {

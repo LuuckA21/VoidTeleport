@@ -6,7 +6,7 @@
 
     <groupId>me.luucka</groupId>
     <artifactId>VoidTeleport</artifactId>
-    <version>Build-6</version>
+    <version>Build-7</version>
     <packaging>jar</packaging>
 
     <name>VoidTeleport</name>
@@ -19,6 +19,7 @@
         <libs.lombok>1.18.28</libs.lombok>
         <libs.configurate-yaml>4.1.2</libs.configurate-yaml>
         <libs.commandapi>9.0.3</libs.commandapi>
+        <libs.extend-library>1.0.2</libs.extend-library>
     </properties>
 
     <build>
@@ -66,6 +67,10 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -93,12 +98,10 @@
             <version>${libs.commandapi}</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
-            <groupId>me.luucka</groupId>
+            <groupId>com.github.LuuckA21</groupId>
             <artifactId>extend-library</artifactId>
-            <version>1.0.0</version>
+            <version>${libs.extend-library}</version>
         </dependency>
-
     </dependencies>
 </project>

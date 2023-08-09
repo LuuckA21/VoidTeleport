@@ -4,8 +4,8 @@ import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import lombok.Getter;
 import me.luucka.extendlibrary.message.Message;
+import me.luucka.extendlibrary.util.IReload;
 import me.luucka.voidteleport.command.VoidTeleportCommand;
-import me.luucka.voidteleport.config.IConfig;
 import me.luucka.voidteleport.listener.PlayerListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,16 +17,13 @@ public final class VoidTeleportPlugin extends JavaPlugin {
 
     private static final Logger LOGGER = Logger.getLogger("VoidTeleport");
 
-    private final List<IConfig> configList = new ArrayList<>();
+    private final List<IReload> reloadList = new ArrayList<>();
 
     @Getter
     private SpawnLocationManager spawnLocationManager;
 
     @Getter
-    private Messages messages;
-
-    @Getter
-    private Message messaggiNuovi;
+    private Message messages;
 
     @Override
     public void onLoad() {
@@ -42,13 +39,11 @@ public final class VoidTeleportPlugin extends JavaPlugin {
         CommandAPI.onEnable();
 
         this.spawnLocationManager = new SpawnLocationManager(this);
-        this.configList.add(this.spawnLocationManager);
+        this.reloadList.add(this.spawnLocationManager);
 
-        this.messages = new Messages(this);
-        this.configList.add(this.messages);
-
-        this.messaggiNuovi = new Message("messages");
-        this.messaggiNuovi.addPrefix();
+        this.messages = new Message(this, "messages");
+        this.messages.addPrefix();
+        this.reloadList.add(this.messages);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         new VoidTeleportCommand(this);
@@ -60,8 +55,8 @@ public final class VoidTeleportPlugin extends JavaPlugin {
     }
 
     public void reload() {
-        for (final IConfig iConfig : configList) {
-            iConfig.reloadConfig();
+        for (final IReload iReload : reloadList) {
+            iReload.reload();
         }
     }
 }

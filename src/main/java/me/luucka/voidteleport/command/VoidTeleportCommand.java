@@ -3,7 +3,6 @@ package me.luucka.voidteleport.command;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.DoubleArgument;
 import me.luucka.extendlibrary.message.Message;
-import me.luucka.voidteleport.Messages;
 import me.luucka.voidteleport.SpawnLocation;
 import me.luucka.voidteleport.SpawnLocationManager;
 import me.luucka.voidteleport.VoidTeleportPlugin;
@@ -11,16 +10,13 @@ import me.luucka.voidteleport.VoidTeleportPlugin;
 public class VoidTeleportCommand {
 
     private final VoidTeleportPlugin plugin;
-    private final Messages messages;
+    private final Message messages;
     private final SpawnLocationManager spawnLocationManager;
-
-    private final Message messaggiNuovi;
 
     public VoidTeleportCommand(final VoidTeleportPlugin plugin) {
         this.plugin = plugin;
         this.messages = plugin.getMessages();
         this.spawnLocationManager = plugin.getSpawnLocationManager();
-        this.messaggiNuovi = plugin.getMessaggiNuovi();
         register();
     }
 
@@ -36,11 +32,11 @@ public class VoidTeleportCommand {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresentOrElse(
                                             location -> {
                                                 location.setLocation(player.getLocation());
-                                                player.sendRichMessage(messages.spawnUpdate());
+                                                messages.from("spawn-update").send(player);
                                             },
                                             () -> {
                                                 spawnLocationManager.createSpawnLocation(player.getLocation());
-                                                player.sendRichMessage(messages.spawnSet());
+                                                messages.from("spawn-set").send(player);
                                             }
                                     );
                                 })
@@ -54,9 +50,9 @@ public class VoidTeleportCommand {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresentOrElse(
                                             location -> {
                                                 location.setYOffset((double) args.get("offset"));
-                                                player.sendRichMessage(messages.yOffsetSet());
+                                                messages.from("offset-set").send(player);
                                             },
-                                            () -> player.sendRichMessage(messages.worldNotSet())
+                                            () -> messages.from("world-not-set").send(player)
                                     );
                                 })
                 )
@@ -68,7 +64,7 @@ public class VoidTeleportCommand {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
                                             location -> {
                                                 spawnLocationManager.remove(location);
-                                                player.sendRichMessage(messages.worldTpRemoved());
+                                                messages.from("world-tp-removed").send(player);
                                             }
                                     );
                                 })
@@ -81,7 +77,7 @@ public class VoidTeleportCommand {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
                                             location -> {
                                                 location.setStatus(SpawnLocation.Status.ON);
-                                                player.sendRichMessage(messages.tpActive());
+                                                messages.from("tp-active").send(player);
                                             });
                                 })
                 )
@@ -93,7 +89,7 @@ public class VoidTeleportCommand {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
                                             location -> {
                                                 location.setStatus(SpawnLocation.Status.OFF);
-                                                player.sendRichMessage(messages.tpInactive());
+                                                messages.from("tp-inactive").send(player);
                                             });
                                 })
                 )
@@ -103,8 +99,8 @@ public class VoidTeleportCommand {
                                 .withShortDescription("Reload plugin")
                                 .executesPlayer((player, args) -> {
                                     plugin.reload();
-//                                    player.sendRichMessage(messages.reload());
-                                    messaggiNuovi.from("reload").send(player);
+                                    messages.addPrefix();
+                                    messages.from("reload").send(player);
                                 })
                 );
 
