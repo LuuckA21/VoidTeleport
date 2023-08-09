@@ -11,13 +11,7 @@ public class Messages implements IConfig {
 
     private String prefix;
 
-    private String noPermission;
-
-    private String noConsole;
-
     private String reload;
-
-    private String commandUsage;
 
     private String worldNotSet;
 
@@ -38,20 +32,8 @@ public class Messages implements IConfig {
         reloadConfig();
     }
 
-    public String noPermission() {
-        return noPermission.replace("{PREFIX}", prefix);
-    }
-
-    public String noConsole() {
-        return noConsole.replace("{PREFIX}", prefix);
-    }
-
     public String reload() {
         return reload.replace("{PREFIX}", prefix);
-    }
-
-    public String commandUsage(final String usage) {
-        return commandUsage.replace("{PREFIX}", prefix).replace("{COMMAND_USAGE}", usage);
     }
 
     public String worldNotSet() {
@@ -86,10 +68,7 @@ public class Messages implements IConfig {
     public void reloadConfig() {
         config.load();
         prefix = config.getString("prefix", "");
-        noPermission = config.getString("no-permission", "");
-        noConsole = config.getString("no-console", "");
         reload = config.getString("reload", "");
-        commandUsage = config.getString("command-usage", "");
         worldNotSet = config.getString("world-not-set", "");
         spawnSet = config.getString("spawn-set", "");
         spawnUpdate = config.getString("spawn-update", "");

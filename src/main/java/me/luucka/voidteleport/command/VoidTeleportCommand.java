@@ -2,6 +2,7 @@ package me.luucka.voidteleport.command;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.DoubleArgument;
+import me.luucka.extendlibrary.message.Message;
 import me.luucka.voidteleport.Messages;
 import me.luucka.voidteleport.SpawnLocation;
 import me.luucka.voidteleport.SpawnLocationManager;
@@ -13,10 +14,13 @@ public class VoidTeleportCommand {
     private final Messages messages;
     private final SpawnLocationManager spawnLocationManager;
 
+    private final Message messaggiNuovi;
+
     public VoidTeleportCommand(final VoidTeleportPlugin plugin) {
         this.plugin = plugin;
         this.messages = plugin.getMessages();
         this.spawnLocationManager = plugin.getSpawnLocationManager();
+        this.messaggiNuovi = plugin.getMessaggiNuovi();
         register();
     }
 
@@ -99,7 +103,8 @@ public class VoidTeleportCommand {
                                 .withShortDescription("Reload plugin")
                                 .executesPlayer((player, args) -> {
                                     plugin.reload();
-                                    player.sendRichMessage(messages.reload());
+//                                    player.sendRichMessage(messages.reload());
+                                    messaggiNuovi.from("reload").send(player);
                                 })
                 );
 

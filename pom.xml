@@ -93,5 +93,12 @@
             <version>${libs.commandapi}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>me.luucka</groupId>
+            <artifactId>extend-library</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 </project>

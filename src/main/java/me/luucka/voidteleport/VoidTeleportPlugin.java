@@ -3,6 +3,7 @@ package me.luucka.voidteleport;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import lombok.Getter;
+import me.luucka.extendlibrary.message.Message;
 import me.luucka.voidteleport.command.VoidTeleportCommand;
 import me.luucka.voidteleport.config.IConfig;
 import me.luucka.voidteleport.listener.PlayerListener;
@@ -24,6 +25,9 @@ public final class VoidTeleportPlugin extends JavaPlugin {
     @Getter
     private Messages messages;
 
+    @Getter
+    private Message messaggiNuovi;
+
     @Override
     public void onLoad() {
         CommandAPI.onLoad(new CommandAPIBukkitConfig(this)
@@ -42,6 +46,9 @@ public final class VoidTeleportPlugin extends JavaPlugin {
 
         this.messages = new Messages(this);
         this.configList.add(this.messages);
+
+        this.messaggiNuovi = new Message("messages");
+        this.messaggiNuovi.addPrefix();
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         new VoidTeleportCommand(this);
