@@ -52,7 +52,7 @@ public class VoidTeleportCommand {
                                                 location.setYOffset((double) args.get("offset"));
                                                 messages.from("offset-set").send(player);
                                             },
-                                            () -> messages.from("world-not-set").send(player)
+                                            () -> messages.from("spawn-not-set").send(player)
                                     );
                                 })
                 )
@@ -64,7 +64,7 @@ public class VoidTeleportCommand {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
                                             location -> {
                                                 spawnLocationManager.remove(location);
-                                                messages.from("world-tp-removed").send(player);
+                                                messages.from("spawn-remove").send(player);
                                             }
                                     );
                                 })
@@ -77,7 +77,7 @@ public class VoidTeleportCommand {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
                                             location -> {
                                                 location.setStatus(SpawnLocation.Status.ON);
-                                                messages.from("tp-active").send(player);
+                                                messages.from("spawn-active").send(player);
                                             });
                                 })
                 )
@@ -89,7 +89,7 @@ public class VoidTeleportCommand {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
                                             location -> {
                                                 location.setStatus(SpawnLocation.Status.OFF);
-                                                messages.from("tp-inactive").send(player);
+                                                messages.from("spawn-inactive").send(player);
                                             });
                                 })
                 )

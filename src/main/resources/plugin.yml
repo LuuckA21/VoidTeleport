@@ -1,9 +1,9 @@
 name: VoidTeleport
 version: '${project.version}'
 main: me.luucka.voidteleport.VoidTeleportPlugin
-api-version: "1.20"
+api-version: 1.18
 authors: [ LuuckA ]
-description: Teleport a player to certain coords when he falls into the void
+description: Teleport a player to spawn when he falls into the void
 libraries:
   - org.spongepowered:configurate-yaml:${libs.configurate-yaml}
   - dev.jorel:commandapi-bukkit-shade:${libs.commandapi}

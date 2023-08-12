@@ -1,6 +1,5 @@
 package me.luucka.voidteleport;
 
-import lombok.Getter;
 import me.luucka.voidteleport.config.BaseConfiguration;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -14,13 +13,10 @@ public class SpawnLocation {
         return this.location.getWorld().getName();
     }
 
-    @Getter
     private Location location;
 
-    @Getter
     private double yOffset;
 
-    @Getter
     private Status status;
 
     public SpawnLocation(final BaseConfiguration config) {
@@ -40,14 +36,26 @@ public class SpawnLocation {
         save();
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
     public void setLocation(Location location) {
         this.location = location;
         save();
     }
 
+    public double getyOffset() {
+        return yOffset;
+    }
+
     public void setYOffset(double yOffset) {
         this.yOffset = yOffset;
         save();
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     public void setStatus(Status status) {

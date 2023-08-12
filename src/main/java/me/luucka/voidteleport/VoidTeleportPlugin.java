@@ -2,7 +2,6 @@ package me.luucka.voidteleport;
 
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
-import lombok.Getter;
 import me.luucka.extendlibrary.message.Message;
 import me.luucka.extendlibrary.util.IReload;
 import me.luucka.voidteleport.command.VoidTeleportCommand;
@@ -19,10 +18,8 @@ public final class VoidTeleportPlugin extends JavaPlugin {
 
     private final List<IReload> reloadList = new ArrayList<>();
 
-    @Getter
     private SpawnLocationManager spawnLocationManager;
 
-    @Getter
     private Message messages;
 
     @Override
@@ -58,5 +55,13 @@ public final class VoidTeleportPlugin extends JavaPlugin {
         for (final IReload iReload : reloadList) {
             iReload.reload();
         }
+    }
+
+    public SpawnLocationManager getSpawnLocationManager() {
+        return spawnLocationManager;
+    }
+
+    public Message getMessages() {
+        return messages;
     }
 }

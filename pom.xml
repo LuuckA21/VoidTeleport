@@ -6,7 +6,7 @@
 
     <groupId>me.luucka</groupId>
     <artifactId>VoidTeleport</artifactId>
-    <version>Build-7</version>
+    <version>Build-8</version>
     <packaging>jar</packaging>
 
     <name>VoidTeleport</name>
@@ -45,6 +45,14 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <filters>
+                                <filter>
+                                    <artifact>com.github.LuuckA21:extend-library</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.MF</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                         </configuration>
                     </execution>
                 </executions>
@@ -84,12 +92,6 @@
             <groupId>org.spongepowered</groupId>
             <artifactId>configurate-yaml</artifactId>
             <version>${libs.configurate-yaml}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${libs.lombok}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
