@@ -27,14 +27,14 @@ Teleport a player to spawn when he falls into the void
 # here: https://docs.adventure.kyori.net/minimessage/format
 # Messages containing the placeholder "<prefix>" will have it replaced with the following string
 prefix=<grey>[<#9403fc>Void<#0373fc>Teleport<grey>]
+spawn-set=<prefix> <#31e31e>Spawn set Successfully
+spawn-update=<prefix> <#31e31e>Spawn update Successfully
+world-not-set=<prefix> <#d63e4d>Spawn location is not set in this world
+offset-set=<prefix> <#31e31e>Y-Offset set Successfully
+world-tp-removed=<prefix> <#d63e4d>Teleport removed from this world
+tp-active=<prefix> <#31e31e>Teleport is now active in this world
+tp-inactive=<prefix> <#d63e4d>Teleport is now inactive in this world
 reload=<prefix> <#31e31e>Plugin reloaded!
-spawn-not-set=<prefix> <#d63e4d>Void spawn location is not set in this world
-spawn-set=<prefix> <#31e31e>Void spawn set successfully
-spawn-update=<prefix> <#31e31e>Void spawn update successfully
-spawn-remove=<prefix> <#d63e4d>Void spawn removed successfully
-offset-set=<prefix> <#31e31e>Y-Offset set successfully
-spawn-active=<prefix> <#31e31e>Void spawn teleport is now active in this world
-spawn-inactive=<prefix> <#d63e4d>Void spawn teleport is now inactive in this world
 ```
 
 [Other translations](https://hangar.papermc.io/LuuckA/AdvancedBooks/pages/Translations)

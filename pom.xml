@@ -6,7 +6,7 @@
 
     <groupId>me.luucka</groupId>
     <artifactId>VoidTeleport</artifactId>
-    <version>Build-9</version>
+    <version>Build-10</version>
     <packaging>jar</packaging>
 
     <name>VoidTeleport</name>
