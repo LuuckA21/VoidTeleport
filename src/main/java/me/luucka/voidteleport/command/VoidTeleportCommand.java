@@ -52,19 +52,19 @@ public class VoidTeleportCommand {
                                                 location.setYOffset((double) args.get("offset"));
                                                 messages.from("offset-set").send(player);
                                             },
-                                            () -> messages.from("world-not-set").send(player)
+                                            () -> messages.from("spawn-not-set").send(player)
                                     );
                                 })
                 )
                 .withSubcommand(
                         new CommandAPICommand("remove")
                                 .withUsage("/voidteleport remove")
-                                .withShortDescription("Remove spawn from this world")
+                                .withShortDescription("Remove spawn and teleport from this world")
                                 .executesPlayer((player, args) -> {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
                                             location -> {
                                                 spawnLocationManager.remove(location);
-                                                messages.from("world-tp-removed").send(player);
+                                                messages.from("spawn-tp-removed").send(player);
                                             }
                                     );
                                 })

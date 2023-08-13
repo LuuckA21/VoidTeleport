@@ -29,9 +29,9 @@ Teleport a player to spawn when he falls into the void
 prefix=<grey>[<#9403fc>Void<#0373fc>Teleport<grey>]
 spawn-set=<prefix> <#31e31e>Spawn set Successfully
 spawn-update=<prefix> <#31e31e>Spawn update Successfully
-world-not-set=<prefix> <#d63e4d>Spawn location is not set in this world
+spawn-not-set=<prefix> <#d63e4d>Spawn location is not set in this world
 offset-set=<prefix> <#31e31e>Y-Offset set Successfully
-world-tp-removed=<prefix> <#d63e4d>Teleport removed from this world
+spawn-tp-removed=<prefix> <#d63e4d>Teleport and spawn removed from this world
 tp-active=<prefix> <#31e31e>Teleport is now active in this world
 tp-inactive=<prefix> <#d63e4d>Teleport is now inactive in this world
 reload=<prefix> <#31e31e>Plugin reloaded!
