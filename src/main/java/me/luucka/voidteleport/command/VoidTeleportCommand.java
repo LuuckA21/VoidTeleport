@@ -61,11 +61,12 @@ public class VoidTeleportCommand {
                                 .withUsage("/voidteleport remove")
                                 .withShortDescription("Remove spawn and teleport from this world")
                                 .executesPlayer((player, args) -> {
-                                    spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
+                                    spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresentOrElse(
                                             location -> {
                                                 spawnLocationManager.remove(location);
                                                 messages.from("spawn-tp-removed").send(player);
-                                            }
+                                            },
+                                            () -> messages.from("spawn-not-set").send(player)
                                     );
                                 })
                 )
@@ -74,11 +75,13 @@ public class VoidTeleportCommand {
                                 .withUsage("/voidteleport on")
                                 .withShortDescription("Activate teleport to spawn in this world")
                                 .executesPlayer((player, args) -> {
-                                    spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
+                                    spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresentOrElse(
                                             location -> {
                                                 location.setStatus(SpawnLocation.Status.ON);
                                                 messages.from("tp-active").send(player);
-                                            });
+                                            },
+                                            () -> messages.from("spawn-not-set").send(player)
+                                    );
                                 })
                 )
                 .withSubcommand(
@@ -86,11 +89,13 @@ public class VoidTeleportCommand {
                                 .withUsage("/voidteleport off")
                                 .withShortDescription("Deactivate teleport to spawn in this world")
                                 .executesPlayer((player, args) -> {
-                                    spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
+                                    spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresentOrElse(
                                             location -> {
                                                 location.setStatus(SpawnLocation.Status.OFF);
                                                 messages.from("tp-inactive").send(player);
-                                            });
+                                            },
+                                            () -> messages.from("spawn-not-set").send(player)
+                                    );
                                 })
                 )
                 .withSubcommand(
