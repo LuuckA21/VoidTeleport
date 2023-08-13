@@ -6,7 +6,7 @@
 
     <groupId>me.luucka</groupId>
     <artifactId>VoidTeleport</artifactId>
-    <version>Build-8</version>
+    <version>Build-9</version>
     <packaging>jar</packaging>
 
     <name>VoidTeleport</name>
@@ -16,10 +16,9 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <libs.lombok>1.18.28</libs.lombok>
         <libs.configurate-yaml>4.1.2</libs.configurate-yaml>
         <libs.commandapi>9.0.3</libs.commandapi>
-        <libs.extend-library>1.0.2</libs.extend-library>
+        <libs.extend-library>1.1.1</libs.extend-library>
     </properties>
 
     <build>
@@ -45,6 +44,12 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <relocations>
+                                <relocation>
+                                    <pattern>me.luucka.extendlibrary</pattern>
+                                    <shadedPattern>me.luucka.voidteleport.extendlibrary</shadedPattern>
+                                </relocation>
+                            </relocations>
                             <filters>
                                 <filter>
                                     <artifact>com.github.LuuckA21:extend-library</artifact>

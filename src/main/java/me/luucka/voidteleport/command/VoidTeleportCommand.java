@@ -72,7 +72,7 @@ public class VoidTeleportCommand {
                 .withSubcommand(
                         new CommandAPICommand("on")
                                 .withUsage("/voidteleport on")
-                                .withShortDescription("Activate spawn in this world")
+                                .withShortDescription("Activate teleport to spawn in this world")
                                 .executesPlayer((player, args) -> {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
                                             location -> {
@@ -84,7 +84,7 @@ public class VoidTeleportCommand {
                 .withSubcommand(
                         new CommandAPICommand("off")
                                 .withUsage("/voidteleport off")
-                                .withShortDescription("Deactivate spawn in this world")
+                                .withShortDescription("Deactivate teleport to spawn in this world")
                                 .executesPlayer((player, args) -> {
                                     spawnLocationManager.getSpawnLocationByWorld(player.getWorld()).ifPresent(
                                             location -> {
