@@ -104,7 +104,6 @@ public class VoidTeleportCommand {
                                 .withShortDescription("Reload plugin")
                                 .executesPlayer((player, args) -> {
                                     plugin.reload();
-                                    messages.addPrefix();
                                     messages.from("reload").send(player);
                                 })
                 );

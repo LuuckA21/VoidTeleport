@@ -2,6 +2,7 @@ package me.luucka.voidteleport;
 
 import me.luucka.extendlibrary.util.IReload;
 import me.luucka.voidteleport.config.BaseConfiguration;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -10,12 +11,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SpawnLocationManager implements IReload {
-
-    private static final Logger LOGGER = Logger.getLogger("VoidTeleport");
-
+    
     private final File dataFolder;
     private final Set<SpawnLocation> spawnLocations = new HashSet<>();
 
@@ -57,7 +55,7 @@ public class SpawnLocationManager implements IReload {
                     try {
                         spawnLocations.add(new SpawnLocation(new BaseConfiguration(file)));
                     } catch (final Exception ex) {
-                        LOGGER.log(Level.WARNING, "World file " + fileName + " loading error!");
+                        Bukkit.getLogger().log(Level.WARNING, "World file " + fileName + " loading error!");
                     }
                 }
             }

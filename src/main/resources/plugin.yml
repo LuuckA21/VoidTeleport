@@ -5,5 +5,5 @@ api-version: 1.18
 authors: [ LuuckA ]
 description: Teleport a player to spawn when he falls into the void
 libraries:
-  - org.spongepowered:configurate-yaml:${libs.configurate-yaml}
-  - dev.jorel:commandapi-bukkit-shade:${libs.commandapi}
+  - org.spongepowered:configurate-yaml:${configurate-yaml.version}
+  - dev.jorel:commandapi-bukkit-shade:${commandapi.version}
