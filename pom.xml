@@ -17,8 +17,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <configurate-yaml.version>4.1.2</configurate-yaml.version>
-        <commandapi.version>9.2.0</commandapi.version>
-        <extend-library.version>1.2.2</extend-library.version>
+        <commandapi.version>9.3.0</commandapi.version>
+        <extend-library.version>1.2.3</extend-library.version>
     </properties>
 
     <build>
@@ -90,7 +90,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.2-R0.1-SNAPSHOT</version>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -106,7 +106,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.LuuckA21</groupId>
+            <groupId>me.luucka</groupId>
             <artifactId>extend-library</artifactId>
             <version>${extend-library.version}</version>
         </dependency>
