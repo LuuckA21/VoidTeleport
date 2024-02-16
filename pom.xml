@@ -18,7 +18,7 @@
 
         <configurate-yaml.version>4.1.2</configurate-yaml.version>
         <commandapi.version>9.3.0</commandapi.version>
-        <extend-library.version>1.2.3</extend-library.version>
+        <extend-library.version>1.2.5</extend-library.version>
     </properties>
 
     <build>
@@ -52,7 +52,7 @@
                             </relocations>
                             <filters>
                                 <filter>
-                                    <artifact>com.github.LuuckA21:extend-library</artifact>
+                                    <artifact>me.luucka:extend-library</artifact>
                                     <excludes>
                                         <exclude>META-INF/*.MF</exclude>
                                     </excludes>
